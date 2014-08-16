@@ -1,42 +1,35 @@
+""" Setup file.
+"""
 import os
-
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.txt')) as f:
-    README = f.read()
-with open(os.path.join(here, 'CHANGES.txt')) as f:
-    CHANGES = f.read()
 
-requires = [
-    'pyramid',
-    'pyramid_chameleon',
-    'pyramid_debugtoolbar',
-    'waitress',
-    ]
+with open(os.path.join(here, 'README.rst')) as f:
+    README = f.read()
+
 
 setup(name='sparks',
-      version='0.0',
-      description='sparks',
-      long_description=README + '\n\n' + CHANGES,
-      classifiers=[
+    version=0.1,
+    description='sparks',
+    long_description=README,
+    classifiers=[
         "Programming Language :: Python",
-        "Framework :: Pyramid",
+        "Framework :: Pylons",
         "Topic :: Internet :: WWW/HTTP",
-        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
-      author='',
-      author_email='',
-      url='',
-      keywords='web pyramid pylons',
-      packages=find_packages(),
-      include_package_data=True,
-      zip_safe=False,
-      install_requires=requires,
-      tests_require=requires,
-      test_suite="sparks",
-      entry_points="""\
-      [paste.app_factory]
-      main = sparks:main
-      """,
-      )
+        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
+    ],
+    keywords="web services",
+    author='',
+    author_email='',
+    url='',
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=['cornice', 'waitress'],
+    entry_points = """\
+    [paste.app_factory]
+    main = sparks:main
+    """,
+    paster_plugins=['pyramid'],
+)
