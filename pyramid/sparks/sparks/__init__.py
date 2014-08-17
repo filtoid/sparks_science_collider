@@ -7,4 +7,5 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.include("cornice")
     config.scan("sparks.views")
+    config.add_route('home', '/')
     return config.make_wsgi_app()

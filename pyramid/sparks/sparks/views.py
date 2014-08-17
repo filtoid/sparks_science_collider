@@ -1,12 +1,21 @@
 """ Cornice services.
 """
 from cornice import Service
+from pyramid.view import view_config
 import random
 
 from sensors import get_distance
 
-hello = Service(name='hello', path='/', description="Simplest app")
+hello = Service(name='hello', path='/data', description="Simplest app")
+#main = Service(name='main', path='/', description='Main page')
 
+@view_config(route_name='home', renderer='wsauthapp:templates/index.mako')
+def my_default_view(request):
+    """Show a default 'you shouldn't be here' message """
+    return {
+        'messages': [],
+        'now': datetime.datetime.utcnow()
+    }
 
 @hello.get()
 def get_info(request):
