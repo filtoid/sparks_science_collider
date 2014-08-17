@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <title></title>
-
+    <script src='js/jquery-2.1.1.min.js'></script>
     <script type="text/javascript" src="js/caman.full.js" ></script>
 
 </head>
@@ -13,12 +13,23 @@
             // We can call any filter before the layer
             this.brightness(5).render();
         });
-    </script>
+    
+	function get_data(){
+		$.ajax({
+			dataType: 'json',
+			url: "http://rpi-b-plus:5543/data",
+			success: function(data){alert(data)}
+			})
+	}
+
+	</script>
     <img
         id="my-image"
-        data-caman-hidpi="C:\Users\Samuel\Desktop\collider_project\test\files\2.jpg"
-        src="C:\Users\Samuel\Desktop\collider_project\test\files\2.jpg"
-        style="width: 600px;"
+        data-caman-hidpi="imgs/Anaphase.jpg"
+        src="imgs/Anaphase.jpg"
+        style="width: 599px;"
     >
+
+<button onclick='get_data()'>click here</button>
 </body>
 </html>
