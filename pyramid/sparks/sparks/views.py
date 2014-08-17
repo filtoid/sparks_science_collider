@@ -6,19 +6,9 @@ import random
 
 from sensors import get_distance
 
-hello = Service(name='hello', path='/data', description="Simplest app",\
-                cors_origins=('*',))
+hello = Service(name='hello', path='/data', description="Simplest app", cors_origins=('*',))
 
-#main = Service(name='main', path='/', description='Main page')
-
-@view_config(route_name='home', renderer='sparks:templates/index.mako')
-def my_default_view(request):
-    """Show a default 'you shouldn't be here' message """
-    return {
-        'messages': []
-    }
-
-@hello.get()
+@hello.get(cors_headers=('X-My-Header', 'Content-Type'))
 def get_info(request):
     """Returns Hello in JSON."""
     #height will be between 50cm and 200cm
