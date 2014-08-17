@@ -6,7 +6,9 @@ import random
 
 from sensors import get_distance
 
-hello = Service(name='hello', path='/data', description="Simplest app")
+hello = Service(name='hello', path='/data', description="Simplest app",\
+                cors_origins=('*',))
+
 #main = Service(name='main', path='/', description='Main page')
 
 @view_config(route_name='home', renderer='sparks:templates/index.mako')
