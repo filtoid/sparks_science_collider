@@ -2,34 +2,38 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <title></title>
+
+    <script type="text/javascript" src="js/caman.min.js" ></script>
+    <script type="text/javascript" src="js/bioimaginator.js" ></script>
     <script src='js/jquery-2.1.1.min.js'></script>
-    <script type="text/javascript" src="js/caman.full.js" ></script>
+    <script>
+        imagination((Math.random()*150)+50,(Math.random()*5)+15, (Math.random()*10)+10);
+
+
+        function do_request(){
+        $.ajax({
+                url:'http://rpi-b-plus:5543/data',
+                success: onsuccess
+                //error: onsuccess
+        });
+        }
+
+        function onsuccess(data){
+            console.log(data);
+            if(data.date_distance != undefined && data.data_height != undefined){
+                imagination(data.data_height,data.data_distance,(data.data_height+data.data_distance)/2);
+            }
+            else{
+                imagination((Math.random()*150)+50,(Math.random()*5)+15, (Math.random()*10)+10);
+            }
+
+        }
+
+
+    </script>
 
 </head>
-<body>
-
-    <script>
-        Caman("#my-image", function () {
-            // We can call any filter before the layer
-            this.brightness(5).render();
-        });
-    
-	function get_data(){
-		$.ajax({
-			dataType: 'json',
-			url: "http://rpi-b-plus:5543/data",
-			success: function(data){alert(data)}
-			})
-	}
-
-	</script>
-    <img
-        id="my-image"
-        data-caman-hidpi="imgs/Anaphase.jpg"
-        src="imgs/Anaphase.jpg"
-        style="width: 599px;"
-    >
-
-<button onclick='get_data()'>click here</button>
+<body style="margin: 0px; ">
+    <canvas id="myCanvas" style="width: 100%; height: 100%;"></canvas>
 </body>
 </html>
