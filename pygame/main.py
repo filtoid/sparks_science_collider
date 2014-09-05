@@ -41,7 +41,15 @@ def zoom():
 		pprint.pprint("Unable to load image")
 
 	width, height = im.size
-	new_size = (int((width * MAX_ZOOM) * (ZOOM_STEP / ZOOM_STEPS)), int((height * MAX_ZOOM) * (ZOOM_STEP / ZOOM_STEPS)))
+	min_width = MIN_ZOOM * width
+	min_height = MIN_ZOOM * height
+	max_width = MAX_ZOOM * width
+	max_height = MAX_ZOOM * height
+
+	zoom_width = ((max_width - min_width) / ZOOM_STEPS * ZOOM_STEP) + width
+	zoom_height = ((max_height - min_height) / ZOOM_STEPS * ZOOM_STEP) + height
+
+	new_size = (int(zoom_width), int(zoom_height))
 	pprint.pprint(new_size)
 
 	new_image = im.resize(new_size)
@@ -90,7 +98,7 @@ curimg = 0
 ZOOM_STEP = 1
 ZOOM_STEPS = 20
 MIN_ZOOM = 1
-MAX_ZOOM = 10
+MAX_ZOOM = 5
 
 draw_image_to_screen()
 
@@ -117,13 +125,19 @@ while Quit is not True:
 				ZOOM_STEP = 1
 
 			elif event.key == pygame.K_w:
-				ZOOM_STEP += 1
+				if ZOOM_STEP+1 > ZOOM_STEPS:
+					ZOOM_STEP = ZOOM_STEPS
+				else:
+					ZOOM_STEP += 1
 				img = zoom()
 				draw_image_to_screen(img)
 				delete(current_dir + "/" + img)
 
 			elif event.key == pygame.K_s:
-				ZOOM_STEP -= 1
+				if ZOOM_STEP-1 < 1:
+					ZOOM_STEP = 1
+				else:
+					ZOOM_STEP -= 1
 				img = zoom()
 				draw_image_to_screen(img)
 				delete(current_dir + "/" + img)
